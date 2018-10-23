@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { VendasService } from '../vendas/vendas.service';
+import { FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-venda-cadastro',
@@ -8,8 +9,8 @@ import { VendasService } from '../vendas/vendas.service';
 })
 export class VendaCadastroComponent implements OnInit {
 
-  venda: any = { itens: [], frete: 0.0, total: 0.0 };
-  item: any = {};
+  venda: any;
+  item: any;
 
   clientes: Array<any>;
   produtos: Array<any>;
@@ -24,6 +25,13 @@ export class VendaCadastroComponent implements OnInit {
       this.vendaService
       .listarProdutos()
       .subscribe(response => this.produtos = response);
+
+      this.novaVenda();
+  }
+
+  novaVenda() {
+    this.venda = { itens: [], frete: 0.0, total: 0.0 };
+    this.item = {};
   }
 
   incluirItem() {
@@ -42,5 +50,15 @@ export class VendaCadastroComponent implements OnInit {
       .reduce((total, v) => total + v, 0);
 
       this.venda.total = totalItens + this.venda.frete;
+  }
+
+  adicionar(frm: FormGroup) {
+    this.vendaService
+      .adicionar(this.venda)
+      .subscribe(response => {
+        frm.reset();
+
+        this.novaVenda();
+      });
   }
 }
