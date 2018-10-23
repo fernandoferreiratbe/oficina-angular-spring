@@ -2,6 +2,9 @@
   <div class="ui-g-12">
     <p-table [value]="vendas">
       
+      <ng-template pTemplate="caption">
+        Listagem de vendas
+      </ng-template>
       <ng-template pTemplate="header">
         <tr>
           <th class="col-header-id">Código</th>
@@ -19,6 +22,7 @@
           <td class="col-numero">{{ venda.total | number: '1.2-2'}}</td>
         </tr>
       </ng-template>
+
     </p-table>
   </div>
 </div>
