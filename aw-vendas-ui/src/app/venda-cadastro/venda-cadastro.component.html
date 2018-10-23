@@ -6,7 +6,7 @@
 
 <form autocomplete="off" #frm="ngForm" (ngSubmit)="adicionar(frm)">
   <div class="ui-g">
-    <div class="ui-g-8 ui-fluid">
+    <div class="ui-g-8 ui-sm-12 ui-fluid">
       <label>Cliente</label>
       <p-dropdown id="cliente" name="cliente"
         [autoWidth]="false" placeholder="Selecione..."
@@ -14,7 +14,7 @@
         [(ngModel)]="venda.cliente" required></p-dropdown>
     </div>
 
-    <div class="ui-g-4 ui-fluid">
+    <div class="ui-g-4 ui-sm-12 ui-fluid">
       <label>Frete</label>
       <input pInputText id="frete" name="frete" 
         currencyMask [options]="{ prefix: '', thousands: '.', decimal: ',', allowNegative: false }"
@@ -26,7 +26,7 @@
       <p-panel header="Itens">
         <div class="ui-g">
 
-          <div class="ui-g-8 ui-fluid">
+          <div class="ui-g-8 ui-sm-12 ui-fluid">
             <label>Produto</label>
             <p-dropdown id="produto" name="produto"
             [autoWidth]="false" placeholder="Selecione..."
@@ -35,13 +35,13 @@
             #produto></p-dropdown>
           </div>
 
-          <div class="ui-g-3 ui-fluid">
+          <div class="ui-g-3 ui-sm-12 ui-fluid">
             <label>Quantidade</label>
             <input pInputText type="number" id="quantidade" name="quantidade"
               [(ngModel)]="item.quantidade" #quantidade/>
           </div>
 
-          <div class="ui-g-1 ui-fluid">
+          <div class="ui-g-1 ui-sm-4 ui-fluid">
               <br />
               <button pButton type="button" icon="pi pi-plus" 
               (click)="incluirItem()"
@@ -49,7 +49,7 @@
           </div>
 
           <div class="ui-g-12">
-            <p-table [value]="venda.itens">
+            <p-table [value]="venda.itens" responsive="true">
               <ng-template pTemplate="header">
                 <tr>
                   <th>Produto</th>
@@ -61,10 +61,22 @@
               
               <ng-template pTemplate="body" let-item>
                 <tr>
-                  <td>{{ item.produto.nome }}</td>
-                  <td>{{ item.produto.valor | number: '1.2-2' }}</td>
-                  <td>{{ item.quantidade }}</td>
-                  <td>{{ item.total | number: '1.2-2' }}</td>
+                  <td>
+                    <span class="ui-column-title">Nome</span>
+                    {{ item.produto.nome }}
+                  </td>
+                  <td>
+                    <span class="ui-column-title">Valor unitário</span>
+                    {{ item.produto.valor | number: '1.2-2' }}
+                  </td>
+                  <td>
+                    <span class="ui-column-title">Quantidade</span>
+                    {{ item.quantidade }}
+                  </td>
+                  <td>
+                    <span class="ui-column-title">Total</span>
+                    {{ item.total | number: '1.2-2' }}
+                  </td>
                 </tr>
               </ng-template>
 
@@ -79,7 +91,7 @@
       </p-panel>
     </div>
 
-    <div class="ui-g-4 ui-g-offset-8 ui-fluid">
+    <div class="ui-g-4 ui-g-offset-8 ui-sm-12 ui-sm-offset-0 ui-fluid">
       <label>Total</label>
       <input pInputText readonly [value]="venda.total | number: '1.2-2'"/>
     </div>
